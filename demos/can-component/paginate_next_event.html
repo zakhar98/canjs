@@ -9,7 +9,7 @@
 <script id="player-list-stache" type="text/stache">
   <ul>
   	{{#each(players)}}
-  		<li {{#isEditing(.)}}class="editing"{{/isEditing}}
+  		<li {{#../isEditing(.)}}class="editing"{{/isEditing}}
   			on:click='editPlayer(.)'>{{name}}</li>
   	{{/each}}
   </ul>
@@ -38,8 +38,12 @@ let Player = DefineMap.extend({
 let PlayerList = DefineMap.extend({
 	editingPlayer: Player,
 	players: {
-		value: new DefineList([new Player({name: "Justin"}),
-			new Player({name: "Brian"})])
+		value: function() {
+			return new DefineList([
+				new Player({name: "Justin"}),
+				new Player({name: "Brian"})
+			]);
+		}
 	},
 	editPlayer: function(player){
 		this.editingPlayer = player;
